@@ -2,6 +2,7 @@ import GetOldTweets3 as got
 import pandas as pd
 import time
 from datetime import datetime, timedelta
+import sys
 
 def gettweets(ticker):
     try:
@@ -12,7 +13,7 @@ def gettweets(ticker):
         file = open(ticker+'.txt', "w")
         file.close()
         start_date = str(datetime.today()).split()[0]
-    print('Start Date:', start_date)
+    print('Start Date:', start_date, ticker)
 
     i = 0
     num_tweets = 0
@@ -51,10 +52,11 @@ def gettweets(ticker):
             file.close()
             file_closed = True
             print('Error', since_date, until_date)
-            time.sleep(60)
+            time.sleep(120)
 
 if __name__ == "__main__":
-    tickers = input().split()
-    for ticker in tickers:
+
+    for ticker in sys.argv[1:]:
         gettweets(ticker)
+        
 
